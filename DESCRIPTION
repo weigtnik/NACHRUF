@@ -1,6 +1,6 @@
 Package: NACHRUF
 Title: Utility Functions for Different Tasks
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     person("Nikolas", "Weigt", , "nikolas.daniel.weigt.1@iqb.hu-berlin.de", role = c("aut", "cre"))
 Description: Perform various little tasks in the general context of the author's work at the FDZ.

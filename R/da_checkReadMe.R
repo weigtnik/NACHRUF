@@ -39,15 +39,6 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
     stop("'path' must be a single character string (or NULL) but is a character vector of length ", length(path),
          call. = FALSE)
   }
-  # check name
-  if (!(is.character(name) || is.null(name))) {
-    stop("'name' must be either NULL or a character string but is of type ", typeof(name),
-         call. = FALSE)
-  }
-  if (is.character(name) && length(name) > 1) {
-    stop("'name' must be a single character string (or NULL) but is a character vector of length ", length(name),
-         call. = FALSE)
-  }
   # check fstruct
   if (!is.numeric(fstruct)) {
     if (is.null(fstruct)) {
@@ -55,7 +46,7 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
       warning("'fstruct' is NULL but should be a numeric value. fstruct = 1 is assumed.",
               call. = FALSE)
     } else {
-      stop("'fstruct' must be a numeric value but is of type ", typeof(name),
+      stop("'fstruct' must be a numeric value but is of type ", typeof(fstruct),
            call. = FALSE)
     }
   }
