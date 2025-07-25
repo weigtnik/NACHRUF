@@ -57,7 +57,7 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
 
   path_to_readme <- path
   if (is.null(path_to_readme)) {
-    pathstruct <- NACHRUF::standardpaths[fstruct]
+    pathstruct <- standardpaths[fstruct]
     pathstruct <- gsub(pattern = "\\[YY\\]",
                        replacement = aid_split$year,
                        x = pathstruct)

@@ -1,0 +1,1 @@
+data(standardpaths, envir = environment())
