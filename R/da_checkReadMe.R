@@ -80,6 +80,11 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
                                          pathbase = path_to_readme,
                                          accept_dupl = has_level)
     }
+  }
+
+  if (grepl(pattern = "\\.txt$", x = path_to_readme[[1]])) {
+    fullpath <- path_to_readme
+  } else {
     fullpath <- NULL
     for (subdir in path_to_readme) {
       files_on_rm_level <- list.files(path = subdir,
