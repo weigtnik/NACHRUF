@@ -90,6 +90,9 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
       files_on_rm_level <- list.files(path = subdir,
                                       recursive = FALSE,
                                       full.names = FALSE)
+      files_on_rm_level <- grep(pattern = "\\.[[:alnum:]]{3,4}$",
+                                x = files_on_rm_level,
+                                value = TRUE)
       rmpattern = paste0(sub(pattern = "\\[.+$",
                              replacement = "",
                              x = pathsplit[length(pathsplit)]),
@@ -98,6 +101,9 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
                      x = files_on_rm_level,
                      value = TRUE,
                      ignore.case = TRUE)
+      if (length(rmname) == 0 && paste0("Readme_", AID, ".txt") %in% files_on_rm_level) {
+        rmname <- paste0("Readme_", AID, ".txt")
+      }
       if (length(rmname) > 1) {
         tmpname <- grep(pattern = pathsplit[length(pathsplit)],
                         x = files_on_rm_level,
