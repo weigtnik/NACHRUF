@@ -123,18 +123,21 @@ da_checkReadMe <- function(AID, path = NULL, fstruct = 1) {
   for (i in seq_along(fullpath)) {
     rmpath <- fullpath[i]
     rmcontent <- readLines(rmpath,
-                           encoding = "latin1",
                            warn = FALSE)
-    lines_with_files <- grep(pattern = "\\.[[:lower:]]{3}([[:blank:]]|\\\t)+-",
+    lines_with_files <- grep(pattern = "\\.[[:alnum:]]{3,4}([[:blank:]]|\\\t)+-",
                              x = rmcontent,
                              value = TRUE)
-    rm_filelist <- gsub(pattern = "([[:blank:]]|\\\t)+.+$",
-                        replacement = "",
-                        x = lines_with_files)
+    lines_split <- strsplit(lines_with_files, split = "\\.")
+    file_table <- data.frame(name = unlist(lapply(seq_along(lines_split), function(x) lines_split[[x]][1])),
+                             rest = unlist(lapply(seq_along(lines_split), function(x) lines_split[[x]][2])))
+    file_table$type <- gsub(pattern = "([[:blank:]]|\\\t)+.+$",
+                            replacement = "",
+                            x = file_table$rest)
+    file_table$fullname <- paste0(file_table$name, ".", file_table$type)
     dir_filelist <- list.files(path = dirname(rmpath),
                                recursive = TRUE)
-    returnlist[[i]] <- data.frame(files_not_in_dir = rm_filelist[!rm_filelist %in% basename(dir_filelist)],
-                          files_not_in_rm = dir_filelist[!basename(dir_filelist) %in% rm_filelist])
+    returnlist[[i]] <- list(files_not_in_dir = file_table$fullname[!file_table$fullname %in% basename(dir_filelist)],
+                            files_not_in_rm = dir_filelist[!basename(dir_filelist) %in% file_table$fullname])
     names(returnlist)[[i]] <- basename(rmpath)
   }
   names(returnlist) <- basename(fullpath)
